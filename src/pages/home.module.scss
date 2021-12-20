@@ -1,1 +1,86 @@
-// TODO
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+
+    header {
+        padding-top: 79.55px;
+    }
+}
+
+.postsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 64.82px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 700px;
+
+    h3 {
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--body);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    footer {
+        display: flex;
+        margin-top: 1rem;
+        gap: 1.625rem;
+        color: var(--info);
+
+        div {
+            display: flex;
+            align-items: center;
+
+            svg {
+                margin-right: 0.5rem;
+                height: 1.25rem;
+                width: 1.25rem;
+            }
+
+
+            span {
+                font-size: 0.875rem;
+            }
+        }
+    }
+}
+
+.loadMorePostsButton {
+    align-self: flex-start;
+    margin-top: 1rem;
+
+    color: var(--highlight);
+    font-size: 1.125rem;
+    line-height: 21.78px;
+
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    background: none;
+    cursor: pointer;
+
+    transition: filter 0.2s, opacity 0.3s;
+
+    &:hover:not(:disabled) {
+        filter: brightness(0.8);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
