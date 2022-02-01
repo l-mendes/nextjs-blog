@@ -1,6 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Prismic from '@prismicio/client';
+import { RichText } from 'prismic-dom';
+import { AiOutlineCalendar, AiOutlineClockCircle } from 'react-icons/ai';
+import { FiUser } from 'react-icons/fi';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Comments } from '../../components/Comments';
 import Header from '../../components/Header';
 
 import { getPrismicClient } from '../../services/prismic';
@@ -8,11 +14,6 @@ import { getPrismicClient } from '../../services/prismic';
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 
-import { RichText } from 'prismic-dom';
-import { AiOutlineCalendar, AiOutlineClockCircle } from 'react-icons/ai';
-import { FiUser } from 'react-icons/fi';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 
 interface Post {
   first_publication_date: string | null;
@@ -38,6 +39,10 @@ interface PostProps {
 export default function Post({ post }: PostProps) {
   const router = useRouter();
 
+  if (router.isFallback) {
+    return <div>Carregando...</div>
+  }
+
   const contentText = post.data.content.reduce((acumulator, content) => {
     return acumulator + ' ' + RichText.asText(content.body);
   }, '');
@@ -45,10 +50,6 @@ export default function Post({ post }: PostProps) {
   const words = contentText.trim().split(/\s+/).length;
 
   const read_time = Math.ceil(words / 200);
-
-  if (router.isFallback) {
-    return <div>Carregando...</div>
-  }
 
   return (
     <>
@@ -87,6 +88,8 @@ export default function Post({ post }: PostProps) {
           )
         })}
       </div>
+
+      <Comments />
     </>
   )
 }
